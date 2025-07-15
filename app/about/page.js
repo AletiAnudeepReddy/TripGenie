@@ -125,12 +125,13 @@ export default function About() {
 
         {/* Final CTA */}
         <section className="text-center mt-16"
-        data-aos="fade-left"
-                data-aos-delay="200">
-          <h2 className="text-3xl font-semibold mb-4"
-          data-aos="fade-right"
-                data-aos-delay="200">Start your magical journey today</h2>
-          <p className="mb-6 text-white/80">It only takes one wish to explore the world. ✨</p>
+      >
+          <h2 data-aos="fade-right"
+                data-aos-delay="200" className="text-3xl font-semibold mb-4"
+          >Start your magical journey today</h2>
+          <p className="mb-6 text-white/80"
+          data-aos="fade-left"
+                data-aos-delay="200">It only takes one wish to explore the world. ✨</p>
           <a
             href="/auth"
             className="inline-block px-8 py-3 rounded-xl text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 transition"

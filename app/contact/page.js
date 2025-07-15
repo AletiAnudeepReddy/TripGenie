@@ -13,23 +13,29 @@ export default function ContactPage() {
         transition={{ duration: 0.6 }}
         className="w-full max-w-lg space-y-8"
       >
-        <h2 className="text-5xl font-bold text-white drop-shadow-lg">
+        <h2 
+        data-aos="fade-down"
+                data-aos-delay="100" className="text-5xl font-bold text-white drop-shadow-lg">
           Get in <span className="text-cyan-400">Touch</span>
         </h2>
-        <p className="text-white/80 text-lg">
+        <p data-aos="fade-up"
+                data-aos-delay="100" className="text-white/80 text-lg">
           Have questions, feedback, or partnership ideas? Our genie is listening. Drop us a line, and we’ll respond like magic ✨
         </p>
 
         <div className="space-y-4 text-white/90 text-sm">
-          <div className="flex items-center gap-3">
+          <div data-aos="fade-right"
+                data-aos-delay="200" className="flex items-center gap-3">
             <FaPhoneAlt className="text-cyan-300" />
             <span>+91 90143 84195</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div data-aos="fade-right"
+                data-aos-delay="250" className="flex items-center gap-3">
             <FaEnvelope className="text-cyan-300" />
             <span>support@tripgenie.ai</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div data-aos="fade-right"
+                data-aos-delay="300" className="flex items-center gap-3">
             <FaMapMarkerAlt className="text-cyan-300" />
             <span>Hyderabad, Telangana, India</span>
           </div>
@@ -43,33 +49,41 @@ export default function ContactPage() {
         transition={{ duration: 0.6 }}
         className="w-full max-w-xl bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl"
       >
-        <h3 className="text-2xl font-semibold mb-6 text-cyan-300">Send us a message</h3>
+        <h3 data-aos="fade-up"
+                data-aos-delay="100" className="text-2xl font-semibold mb-6 text-cyan-300">Send us a message</h3>
         <form className="space-y-5">
           <div>
-            <label className="block text-sm text-white/70 mb-1">Full Name</label>
-            <input
+            <label data-aos="fade-right"
+                data-aos-delay="150" className="block text-sm text-white/70 mb-1">Full Name</label>
+            <input data-aos="fade-left"
+                data-aos-delay="150"
               type="text"
               placeholder="Enter your name"
               className="w-full px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
           <div>
-            <label className="block text-sm text-white/70 mb-1">Email</label>
-            <input
+            <label data-aos="fade-right"
+                data-aos-delay="200" className="block text-sm text-white/70 mb-1">Email</label>
+            <input data-aos="fade-left"
+                data-aos-delay="200"
               type="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
           <div>
-            <label className="block text-sm text-white/70 mb-1">Message</label>
-            <textarea
+            <label data-aos="fade-right"
+                data-aos-delay="250" className="block text-sm text-white/70 mb-1">Message</label>
+            <textarea data-aos="fade-left"
+                data-aos-delay="250"
               rows="4"
               placeholder="Type your message..."
               className="w-full px-4 py-2 rounded-md bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
-          <button
+          <button data-aos="zoom-out"
+                data-aos-delay="300"
             type="submit"
             className="w-full py-2 px-6 bg-cyan-500 hover:bg-cyan-600 transition text-white rounded-md font-semibold"
           >
