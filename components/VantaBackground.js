@@ -26,7 +26,7 @@ export default function VantaBackground() {
           minWidth: 200.0,
           // Soft red shadows
           speed: 1.2,                 // Smooth speed
-          sunColor: 0xffcc33,         // Golden sun effect
+          sunColor: 	0x00ccff,         // Golden sun effect
         });
         setVantaEffect(effect);
       }

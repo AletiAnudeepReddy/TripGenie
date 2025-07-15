@@ -1,5 +1,7 @@
 // app/page.js or pages/index.js
 import VantaBackground from "@/components/VantaBackground";
+import Link from "next/link";
+import FaGithub from "react-icons"
 
 export default function Home() {
   return (
@@ -16,7 +18,6 @@ export default function Home() {
           color: "#fff",
         }}
       >
-        <h1>Cloudy Welcome</h1>
       </div>
     </div>
   );
