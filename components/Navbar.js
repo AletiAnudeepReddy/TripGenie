@@ -25,10 +25,10 @@ const Navbar = () => {
 
             <div className="hidden md:flex gap-6 text-white">
                 <Link href="/" title="Home">
-                    <Home className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-amber-200 hover:scale-110 transition-transform duration-200" />
+                    <Home className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </Link>
                 <Link href="/contact" title="Contact Us">
-                    <Mail className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-amber-200 hover:scale-110 transition-transform duration-200" />
+                    <Mail className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </Link>
                 <a
                     href="https://github.com/AletiAnudeepReddy"
@@ -36,10 +36,10 @@ const Navbar = () => {
                     rel="noopener noreferrer"
                     title="GitHub"
                 >
-                    <Github className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-amber-200 hover:scale-110 transition-transform duration-200" />
+                    <Github className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </a>
                 <Link href="/login" title="Login">
-                    <LogIn className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-amber-200 hover:scale-110 transition-transform duration-200" />
+                    <LogIn className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </Link>
             </div>
 
