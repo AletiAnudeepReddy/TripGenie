@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import Footer from "@/components/Footer";
 
 export default function TripGenieAuthForm() {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,7 +27,8 @@ export default function TripGenieAuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-black">
+    <div className="bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] min-h-screen">
+    <div className="flex items-center justify-center px-4 pt-40 pb-25">
       <AnimatePresence mode="wait">
         <motion.div
           key={isLogin ? "login" : "signup"}
@@ -143,6 +145,8 @@ export default function TripGenieAuthForm() {
           </div>
         </motion.div>
       </AnimatePresence>
+    </div>
+    <Footer/>
     </div>
   );
 }

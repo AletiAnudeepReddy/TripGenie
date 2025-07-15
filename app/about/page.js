@@ -1,12 +1,13 @@
 // app/about/page.js (or pages/about.js)
 
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import { FaMapMarkedAlt, FaRobot, FaClock, FaMagic, FaMobileAlt } from "react-icons/fa";
 
 export default function About() {
   return (
-    
-    <div className="text-white min-h-screen px-6 py-16 bg-black bg-opacity-90">
+    <div className="bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] min-h-screen">
+    <div className="text-white min-h-screen px-6 py-16 bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
       <div className="max-w-5xl mx-auto space-y-16 mt-15">
 
         {/* Header Section */}
@@ -96,6 +97,8 @@ export default function About() {
           </a>
         </section>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 }
