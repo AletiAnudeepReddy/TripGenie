@@ -56,7 +56,7 @@ export default function Home() {
               <div className="mx-[10vw] row2 p-10"
               >
                 <h2
-                  className="text-center text-5xl font-medium text-white sm:text-7xl"
+                  className="drop-shadow-[0_0_8px_rgba(34,211,238,0.7)] text-center text-5xl font-medium text-white sm:text-7xl"
                   data-aos="fade-right"
                   data-aos-delay="400"
                 >
@@ -79,7 +79,7 @@ export default function Home() {
                   </span>
                 </h2>
 
-                <p className="mx-[10vw] mt-6 text-center text-xl leading-6 text-gray-800"
+                <p className="mx-[10vw] mt-6 text-center text-xl leading-6 text-gray-800 "
                   data-aos="fade-left"
                   data-aos-delay="500">
                   TripGenie transforms your dream destinations into smart, AI-planned itineraries. Just tell us where, and your genie does the rest — hotels, food, sights, magic.

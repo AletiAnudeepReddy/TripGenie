@@ -38,7 +38,7 @@ const Navbar = () => {
                 >
                     <Github className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </a>
-                <Link href="/login" title="Login">
+                <Link href="/auth" title="Login">
                     <LogIn className="drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] w-5 h-5 hover:text-cyan-400 hover:scale-110 transition-transform duration-200" />
                 </Link>
             </div>
