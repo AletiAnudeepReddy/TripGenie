@@ -103,7 +103,7 @@ export default function ItineraryPage() {
                                 transition={{ delay: index * 0.15, duration: 0.4, ease: "easeOut" }}
                                 className={`relative flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium transition-all duration-200
       ${activeTab === tab.id
-                                        ? "text-white after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-cyan-400 after:rounded-full"
+                                        ? "text-white border-b-2 backdrop-blur-xl bg-white/3 border-cyan-400 after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-cyan-400 after:rounded-full scale-[1.05] shadow-cyan-400/20"
                                         : "text-white/60 hover:text-white"
                                     }
     `}
@@ -116,7 +116,7 @@ export default function ItineraryPage() {
                     </div>
 
                     {/* Tab Content (Placeholder) */}
-                    <div className="p-4 border border-white/10 rounded-lg bg-white/5 backdrop-blur-md " data-aos="fade-up"
+                    <div className="p-4 border border-white/10 rounded-lg bg-white/3" data-aos="fade-up"
                         data-aos-delay="200" >
                         {activeTab === "map" && <p>🗺️ Your interactive trip map will appear here.</p>}
                         {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
