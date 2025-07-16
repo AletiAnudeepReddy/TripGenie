@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { useEffect } from "react";
+import { usePathname } from 'next/navigation'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,7 @@ const geistMono = Geist_Mono({
 
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname()
   useEffect(() => {
     AOS.init({
       duration: 900,
@@ -32,7 +34,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Navbar/>
+      <Navbar key={pathname}/>
         {children}
       </body>
     </html>
