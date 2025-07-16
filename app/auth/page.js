@@ -3,8 +3,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import Footer from "@/components/Footer";
+import { useRouter } from 'next/navigation'
 
 export default function TripGenieAuthForm() {
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -12,19 +14,49 @@ export default function TripGenieAuthForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Simulate validation
-    if (!email || !password || (!isLogin && (!fullname || !confirmPassword))) {
-      setMessage("Please fill in all required fields.");
-      return;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!email || !password || (!isLogin && (!fullname || password !== confirmPassword))) {
+    setMessage("Please fill in all fields correctly.");
+    return;
+  }
+
+  const endpoint = isLogin ? "/api/login" : "/api/signup";
+  const payload = isLogin
+    ? { email, password }
+    : { fullname, email, password };
+
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Something went wrong");
+
+    setMessage(data.message);
+
+    if (isLogin) {
+      // Store email for logged-in state
+      localStorage.setItem("userEmail", email);
+      // Redirect to trip generation page
+      router.push("/itinerary");
+    } else {
+      // After signup, reset form and switch to login
+      setIsLogin(true);
+      setFullname("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     }
-    if (!isLogin && password !== confirmPassword) {
-      setMessage("Passwords do not match.");
-      return;
-    }
-    setMessage("✅ Form submitted successfully.");
-  };
+  } catch (err) {
+    setMessage(err.message);
+  }
+};
+
 
   return (
     <div className="bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] min-h-screen">
