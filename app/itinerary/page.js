@@ -6,6 +6,10 @@ import { FaSuitcaseRolling } from "react-icons/fa";
 import Footer from "@/components/Footer";
 import { FaMapMarkerAlt, FaCalendarAlt, FaRegCommentDots, FaUtensils } from "react-icons/fa";
 import MapLoader from "@/components/MapLoader";
+import Restaurants from "@/components/Restaurants";
+//import Hotels from "@/components/Hotels";
+//import FamousPlaces from "@/components/FamousPlaces";
+
 
 
 export default function ItineraryPage() {
@@ -62,6 +66,12 @@ export default function ItineraryPage() {
                             e.preventDefault();
                             setFormSubmitted(true);
                             setActiveTab("map");
+                            setTripDetails({
+                                from: "",
+                                to: "",
+                                days: "",
+                                preferences: ""
+                            });
                         }}
                     >
                         <div className="relative"
@@ -119,7 +129,6 @@ export default function ItineraryPage() {
                             data-aos="fade-up"
                             data-aos-delay="300"
                             type="submit"
-                            onClick={(e) => handleSubmit(e)}
                             className="w-full py-2 bg-cyan-500 hover:bg-cyan-600 transition rounded-md font-semibold"
                         >
                             ✨ Generate Itinerary
@@ -169,7 +178,16 @@ export default function ItineraryPage() {
                         {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
                         {activeTab === "hotels" && <p>🏨 Curated hotel suggestions with ratings and location.</p>}
                         {activeTab === "places" && <p>📍 Top places to visit with reasons to explore them.</p>}
-                        {activeTab === "restaurants" && <p>🍽️ Explore top restaurants, local delicacies, and street food options near your destination.</p>}
+                        {activeTab === "restaurants" && (
+                            <>
+                                {formSubmitted ? (
+                                    <Restaurants location={tripDetails.to} />
+                                ) : (
+                                    <p>🍽️ Enter trip details to see restaurants near your destination.</p>
+                                )}
+                            </>
+                        )}
+
                     </div>
                 </div>
             </div>
