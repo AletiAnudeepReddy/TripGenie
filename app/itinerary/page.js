@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FaSuitcaseRolling } from "react-icons/fa";
 import Footer from "@/components/Footer";
 import { FaMapMarkerAlt, FaCalendarAlt, FaRegCommentDots, FaUtensils } from "react-icons/fa";
+import MapLoader from "@/components/MapLoader";
 
 
 export default function ItineraryPage() {
