@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { FaMapMarkerAlt, FaCalendarAlt, FaRegCommentDots, FaUtensils } from "react-icons/fa";
 import MapLoader from "@/components/MapLoader";
 import Restaurants from "@/components/Restaurants";
-//import Hotels from "@/components/Hotels";
+import Hotels from "@/components/Hotels";
 //import FamousPlaces from "@/components/FamousPlaces";
 
 
@@ -176,7 +176,13 @@ export default function ItineraryPage() {
                             </>
                         )}
                         {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
-                        {activeTab === "hotels" && <p>🏨 Curated hotel suggestions with ratings and location.</p>}
+                        {activeTab === "stay" && (
+                            formSubmitted ? (
+                                <Hotels location={tripDetails.to} />
+                            ) : (
+                                <p>🏨 Enter trip details to see stays near your destination.</p>
+                            )
+                        )}
                         {activeTab === "places" && <p>📍 Top places to visit with reasons to explore them.</p>}
                         {activeTab === "restaurants" && (
                             <>
