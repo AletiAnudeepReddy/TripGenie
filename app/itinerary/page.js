@@ -9,7 +9,7 @@ import MapLoader from "@/components/MapLoader";
 import Restaurants from "@/components/Restaurants";
 import Hotels from "@/components/Hotels";
 import FamousPlaces from "@/components/FamousPlaces";
-
+import Stays from "@/components/Stays";
 
 
 export default function ItineraryPage() {
@@ -175,7 +175,12 @@ export default function ItineraryPage() {
                                 )}
                             </>
                         )}
-                        {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
+                        {activeTab === "stay" && (
+                            formSubmitted?FaBed(
+                                <Stays location={tripDetails.to}/>
+                            ):(<p>🛏️ Recommended stays and areas to stay near your destination.</p>
+                            )
+                        )}
                         {activeTab === "hotels" && (
                             formSubmitted ? (
                                 <Hotels location={tripDetails.to} />
