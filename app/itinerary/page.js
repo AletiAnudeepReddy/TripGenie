@@ -8,7 +8,7 @@ import { FaMapMarkerAlt, FaCalendarAlt, FaRegCommentDots, FaUtensils } from "rea
 import MapLoader from "@/components/MapLoader";
 import Restaurants from "@/components/Restaurants";
 import Hotels from "@/components/Hotels";
-//import FamousPlaces from "@/components/FamousPlaces";
+import FamousPlaces from "@/components/FamousPlaces";
 
 
 
@@ -176,14 +176,20 @@ export default function ItineraryPage() {
                             </>
                         )}
                         {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
-                        {activeTab === "stay" && (
+                        {activeTab === "hotels" && (
                             formSubmitted ? (
                                 <Hotels location={tripDetails.to} />
                             ) : (
-                                <p>🏨 Enter trip details to see stays near your destination.</p>
+                                <p>🏨 Enter trip details to see hotels near your destination.</p>
                             )
                         )}
-                        {activeTab === "places" && <p>📍 Top places to visit with reasons to explore them.</p>}
+                        {activeTab === "places" && (
+                            formSubmitted ? (
+                                <FamousPlaces location={tripDetails.to} />
+                            ) : (
+                                <p>🗺️ Enter trip details to see top sights near your destination.</p>
+                            )
+                        )}
                         {activeTab === "restaurants" && (
                             <>
                                 {formSubmitted ? (
