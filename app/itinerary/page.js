@@ -13,6 +13,23 @@ import Stays from "@/components/Stays";
 
 
 export default function ItineraryPage() {
+
+    const geocodeLocation = async (location) => {
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`
+        );
+        const data = await response.json();
+
+        if (data.length > 0) {
+            return {
+                lat: data[0].lat,
+                lon: data[0].lon
+            };
+        } else {
+            throw new Error("Location not found");
+        }
+    };
+
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [tripDetails, setTripDetails] = useState({
         from: "",
@@ -20,22 +37,39 @@ export default function ItineraryPage() {
         days: "",
         preferences: ""
     });
+    const [tripCoordinates, setTripCoordinates] = useState({
+        from: null,
+        to: null
+    });
     const [activeTab, setActiveTab] = useState("map");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Do whatever processing you need with tripDetails here
-        console.log("User submitted:", tripDetails);
+        try {
+            const fromCoords = await geocodeLocation(tripDetails.from);
+            const toCoords = await geocodeLocation(tripDetails.to);
 
-        // ✅ Reset the form state
-        setTripDetails({
-            from: "",
-            to: "",
-            days: "",
-            preferences: ""
-        });
+            console.log("From:", fromCoords);
+            console.log("To:", toCoords);
+
+            // You can pass these to your components or update state:
+            setTripCoordinates({ from: fromCoords, to: toCoords });
+            setFormSubmitted(true);
+            setActiveTab("map");
+
+            // Optional: reset form inputs
+            setTripDetails({
+                from: "",
+                to: "",
+                days: "",
+                preferences: ""
+            });
+        } catch (err) {
+            console.error("Geocoding failed", err);
+        }
     };
+
 
     const tabs = [
         { id: "map", label: "Map", icon: <FaMapMarkedAlt className="text-xl" /> },
@@ -62,17 +96,7 @@ export default function ItineraryPage() {
 
                     <form
                         className="space-y-4"
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            setFormSubmitted(true);
-                            setActiveTab("map");
-                            setTripDetails({
-                                from: "",
-                                to: "",
-                                days: "",
-                                preferences: ""
-                            });
-                        }}
+                        onSubmit={handleSubmit}
                     >
                         <div className="relative"
                             data-aos="fade-right"
@@ -176,11 +200,13 @@ export default function ItineraryPage() {
                             </>
                         )}
                         {activeTab === "stay" && (
-                            formSubmitted?FaBed(
-                                <Stays location={tripDetails.to}/>
-                            ):(<p>🛏️ Recommended stays and areas to stay near your destination.</p>
+                            formSubmitted ? (
+                                <Stays location={tripDetails.to} />
+                            ) : (
+                                <p>🛏️ Recommended stays and areas to stay near your destination.</p>
                             )
                         )}
+
                         {activeTab === "hotels" && (
                             formSubmitted ? (
                                 <Hotels location={tripDetails.to} />
