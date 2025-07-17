@@ -9,7 +9,29 @@ import MapLoader from "@/components/MapLoader";
 
 
 export default function ItineraryPage() {
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [tripDetails, setTripDetails] = useState({
+        from: "",
+        to: "",
+        days: "",
+        preferences: ""
+    });
     const [activeTab, setActiveTab] = useState("map");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Do whatever processing you need with tripDetails here
+        console.log("User submitted:", tripDetails);
+
+        // ✅ Reset the form state
+        setTripDetails({
+            from: "",
+            to: "",
+            days: "",
+            preferences: ""
+        });
+    };
 
     const tabs = [
         { id: "map", label: "Map", icon: <FaMapMarkedAlt className="text-xl" /> },
@@ -34,7 +56,14 @@ export default function ItineraryPage() {
                         <h2 className="text-2xl font-semibold text-cyan-300">Trip Details</h2>
                     </div>
 
-                    <form className="space-y-4">
+                    <form
+                        className="space-y-4"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            setFormSubmitted(true);
+                            setActiveTab("map");
+                        }}
+                    >
                         <div className="relative"
                             data-aos="fade-right"
                             data-aos-delay="150" >
@@ -42,6 +71,8 @@ export default function ItineraryPage() {
                             <input
                                 type="text"
                                 placeholder="From (Your City)"
+                                value={tripDetails.from}
+                                onChange={(e) => setTripDetails({ ...tripDetails, from: e.target.value })}
                                 className="w-full pl-10 py-2 rounded-md bg-white/10 text-white placeholder-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                             />
                         </div>
@@ -53,6 +84,8 @@ export default function ItineraryPage() {
                             <input
                                 type="text"
                                 placeholder="To (Destination)"
+                                value={tripDetails.to}
+                                onChange={(e) => setTripDetails({ ...tripDetails, to: e.target.value })}
                                 className="w-full pl-10 py-2 rounded-md bg-white/10 text-white placeholder-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                             />
                         </div>
@@ -64,6 +97,8 @@ export default function ItineraryPage() {
                             <input
                                 type="number"
                                 placeholder="Number of Days"
+                                value={tripDetails.days}
+                                onChange={(e) => setTripDetails({ ...tripDetails, days: e.target.value })}
                                 className="w-full pl-10 py-2 rounded-md bg-white/10 text-white placeholder-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                             />
                         </div>
@@ -74,6 +109,8 @@ export default function ItineraryPage() {
                             <FaRegCommentDots className="absolute left-3 top-3.5 text-cyan-400" />
                             <textarea
                                 placeholder="Additional preferences"
+                                value={tripDetails.preferences}
+                                onChange={(e) => setTripDetails({ ...tripDetails, preferences: e.target.value })}
                                 className="w-full pl-10 py-2 rounded-md bg-white/10 text-white placeholder-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                             ></textarea>
                         </div>
@@ -82,6 +119,7 @@ export default function ItineraryPage() {
                             data-aos="fade-up"
                             data-aos-delay="300"
                             type="submit"
+                            onClick={(e) => handleSubmit(e)}
                             className="w-full py-2 bg-cyan-500 hover:bg-cyan-600 transition rounded-md font-semibold"
                         >
                             ✨ Generate Itinerary
@@ -119,7 +157,15 @@ export default function ItineraryPage() {
                     {/* Tab Content (Placeholder) */}
                     <div className="p-4 border border-white/10 rounded-lg bg-white/3" data-aos="fade-up"
                         data-aos-delay="200" >
-                        {activeTab === "map" && <p>🗺️ Your interactive trip map will appear here.</p>}
+                        {activeTab === "map" && (
+                            <>
+                                {formSubmitted ? (
+                                    <MapLoader from={tripDetails.from} to={tripDetails.to} />
+                                ) : (
+                                    <p>🗺️ Your interactive trip map will appear here after submitting the form.</p>
+                                )}
+                            </>
+                        )}
                         {activeTab === "stay" && <p>🛏️ Recommended stays and areas to stay near your destination.</p>}
                         {activeTab === "hotels" && <p>🏨 Curated hotel suggestions with ratings and location.</p>}
                         {activeTab === "places" && <p>📍 Top places to visit with reasons to explore them.</p>}
