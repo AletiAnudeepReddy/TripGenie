@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/connectDB'; // your DB connection file
+import connectDB from '@/lib/mongodb' // your DB connection file
 import Trips from '@/models/Trips'; // import the model
 
 // POST: Add a new trip

@@ -44,31 +44,54 @@ export default function ItineraryPage() {
     const [activeTab, setActiveTab] = useState("map");
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        try {
-            const fromCoords = await geocodeLocation(tripDetails.from);
-            const toCoords = await geocodeLocation(tripDetails.to);
+    try {
+        // Geocode for map rendering
+        const fromCoords = await geocodeLocation(tripDetails.from);
+        const toCoords = await geocodeLocation(tripDetails.to);
 
-            console.log("From:", fromCoords);
-            console.log("To:", toCoords);
+        console.log("From:", fromCoords);
+        console.log("To:", toCoords);
 
-            // You can pass these to your components or update state:
-            setTripCoordinates({ from: fromCoords, to: toCoords });
-            setFormSubmitted(true);
-            setActiveTab("map");
+        // Set map coordinates for rendering
+        setTripCoordinates({ from: fromCoords, to: toCoords });
+        setFormSubmitted(true);
+        setActiveTab("map");
 
-            // Optional: reset form inputs
-            setTripDetails({
-                from: "",
-                to: "",
-                days: "",
-                preferences: ""
-            });
-        } catch (err) {
-            console.error("Geocoding failed", err);
-        }
-    };
+        // ✅ Save trip details (place names) to database
+        const email = localStorage.getItem("userEmail");
+
+        const res = await fetch("/api/trips", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                from: tripDetails.from,
+                to: tripDetails.to,
+                days: Number(tripDetails.days)
+            })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to save trip");
+
+        console.log("Trip saved to DB:", data.trip);
+
+        // Clear form
+        setTripDetails({
+            from: "",
+            to: "",
+            days: "",
+            preferences: ""
+        });
+    } catch (err) {
+        console.error("Error in handleSubmit:", err);
+    }
+};
+
 
 
     const tabs = [
