@@ -1,5 +1,3 @@
-// app/[username]/page.tsx
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -8,23 +6,44 @@ import Link from 'next/link'
 import VantaBackground from '@/components/VantaBackground'
 import VantaBackground2 from '@/components/VantaBackground2'
 import Footer from '@/components/Footer'
-import { MapPin } from "lucide-react";
+import { MapPin } from "lucide-react"
 
 export default function UserDashboard() {
     const { username } = useParams()
-    const [tripHistory, setTripHistory] = useState([
-        { destination: 'Goa', days: 3 },
-        { destination: 'Manali', days: 5 },
-        { destination: 'Kerala', days: 4 },
-        { destination: 'Chennai', days: 2 }
-    ]) // Replace with real fetch later
+    const [tripHistory, setTripHistory] = useState([])
+
+    useEffect(() => {
+        const fetchTrips = async () => {
+            const email = localStorage.getItem('userEmail')
+            if (!email) return
+
+            try {
+                const res = await fetch(`/api/trips?email=${email}`)
+                const data = await res.json()
+
+                if (data.success && Array.isArray(data.trips)) {
+                    const mapped = data.trips.map((trip) => ({
+                        destination: trip.to,
+                        days: trip.days
+                    }))
+                    setTripHistory(mapped)
+                } else {
+                    console.error('Failed to fetch trips:', data)
+                }
+            } catch (err) {
+                console.error('Error fetching trips:', err)
+            }
+        }
+
+        fetchTrips()
+    }, [])
 
     const totalTrips = tripHistory.length
     const totalDays = tripHistory.reduce((sum, trip) => sum + trip.days, 0)
 
     return (
         <div className="bg-[#000000] z-0 bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] min-h-[100vh] text-white font-sans">
-            {/* Cover + Profile Image */}
+            {/* Cover Image */}
             <div className="cover relative">
                 <div className="w-full h-48 md:h-[350px] relative z-1"
                     data-aos="zoom-in"
@@ -49,7 +68,7 @@ export default function UserDashboard() {
                 </div>
             </div>
 
-            {/* Info Section */}
+            {/* Info */}
             <div className="info flex flex-col justify-center items-center mt-24 gap-2 text-center">
                 <div className="text-white font-bold text-lg"
                     data-aos="fade-right"
@@ -69,7 +88,6 @@ export default function UserDashboard() {
                     {totalTrips} Trips Planned · {totalDays} Days Traveled
                 </div>
 
-                {/* Plan a New Trip */}
                 <Link href="/itinerary"
                     data-aos="fade-down"
                     data-aos-delay="100">
@@ -82,27 +100,32 @@ export default function UserDashboard() {
             {/* Recent Trips */}
             <div className="mt-12 w-full max-w-xl mx-auto px-4">
                 <h3 data-aos="fade-down"
-                data-aos-delay="100" className="text-white font-semibold text-lg mb-3 border-b border-white/20 pb-2 text-center">
+                    data-aos-delay="100"
+                    className="text-white font-semibold text-lg mb-3 border-b border-white/20 pb-2 text-center">
                     🗺️ Your Recent Trips
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                    {tripHistory.map((trip, index) => (
-                        <div
-                            key={index}
-                            data-aos="zoom-out"
-                data-aos-delay="150"
-                            className="bg-white/5 p-4 rounded-xl border border-white/5 shadow-sm hover:shadow-md transition duration-300"
-                        >
-                            <h3 className="text-white text-center text-lg font-semibold flex justify-center items-center gap-2">
-                                <MapPin className="w-5 h-5 text-yellow-400" />
-                                {trip.destination}
-                            </h3>
-                            <p className="text-slate-300 text-center text-sm">{trip.days} days</p>
-                        </div>
-                    ))}
+                    {tripHistory.length === 0 ? (
+                        <p className="text-slate-400 text-center col-span-2">No trips found.</p>
+                    ) : (
+                        tripHistory.map((trip, index) => (
+                            <div
+                                key={index}
+                                data-aos="zoom-out"
+                                data-aos-delay="150"
+                                className="bg-white/5 p-4 rounded-xl border border-white/5 shadow-sm hover:shadow-md transition duration-300"
+                            >
+                                <h3 className="text-white text-center text-lg font-semibold flex justify-center items-center gap-2">
+                                    <MapPin className="w-5 h-5 text-yellow-400" />
+                                    {trip.destination}
+                                </h3>
+                                <p className="text-slate-300 text-center text-sm">{trip.days} days</p>
+                            </div>
+                        ))
+                    )}
                 </div>
-
             </div>
+
             <Footer />
         </div>
     )
