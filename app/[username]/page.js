@@ -15,6 +15,8 @@ export default function UserDashboard() {
     const [tripHistory, setTripHistory] = useState([
         { destination: 'Goa', days: 3 },
         { destination: 'Manali', days: 5 },
+        { destination: 'Kerala', days: 4 },
+        { destination: 'Chennai', days: 2 }
     ]) // Replace with real fetch later
 
     const totalTrips = tripHistory.length
@@ -34,11 +36,11 @@ export default function UserDashboard() {
                     />
                 </div>
 
-                <div className="absolute -bottom-20 right-[32%] z-10 md:right-[45%] border-white border-4 overflow-hidden rounded-full shadow-lg"
+                <div className="absolute -bottom-20 right-[32%] z-10 md:right-[45%] border-white/50 border-4 overflow-hidden rounded-full shadow-lg"
                     data-aos="zoom-out"
                     data-aos-delay="200">
                     <img
-                        className="overflow-hidden rounded-full"
+                        className="overflow-hidden rounded-full opacity-70"
                         width={165}
                         height={165}
                         src="/images.jpeg"
@@ -79,13 +81,16 @@ export default function UserDashboard() {
 
             {/* Recent Trips */}
             <div className="mt-12 w-full max-w-xl mx-auto px-4">
-                <h3 className="text-white font-semibold text-lg mb-3 border-b border-white/20 pb-2 text-center">
+                <h3 data-aos="fade-down"
+                data-aos-delay="100" className="text-white font-semibold text-lg mb-3 border-b border-white/20 pb-2 text-center">
                     🗺️ Your Recent Trips
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                     {tripHistory.map((trip, index) => (
                         <div
                             key={index}
+                            data-aos="zoom-out"
+                data-aos-delay="150"
                             className="bg-white/5 p-4 rounded-xl border border-white/5 shadow-sm hover:shadow-md transition duration-300"
                         >
                             <h3 className="text-white text-center text-lg font-semibold flex justify-center items-center gap-2">
