@@ -8,6 +8,7 @@ import Link from 'next/link'
 import VantaBackground from '@/components/VantaBackground'
 import VantaBackground2 from '@/components/VantaBackground2'
 import Footer from '@/components/Footer'
+import { MapPin } from "lucide-react";
 
 export default function UserDashboard() {
     const { username } = useParams()
@@ -23,7 +24,9 @@ export default function UserDashboard() {
         <div className="bg-[#000000] z-0 bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] min-h-[100vh] text-white font-sans">
             {/* Cover + Profile Image */}
             <div className="cover relative">
-                <div className="w-full h-48 md:h-[350px] relative z-1">
+                <div className="w-full h-48 md:h-[350px] relative z-1"
+                    data-aos="zoom-in"
+                    data-aos-delay="150">
                     <img
                         className="object-cover w-full h-48 md:h-[350px]"
                         src="/trav.jpg"
@@ -31,7 +34,9 @@ export default function UserDashboard() {
                     />
                 </div>
 
-                <div className="absolute -bottom-20 right-[32%] z-10 md:right-[45%] border-white border-4 overflow-hidden rounded-full shadow-lg">
+                <div className="absolute -bottom-20 right-[32%] z-10 md:right-[45%] border-white border-4 overflow-hidden rounded-full shadow-lg"
+                    data-aos="zoom-out"
+                    data-aos-delay="200">
                     <img
                         className="overflow-hidden rounded-full"
                         width={165}
@@ -44,20 +49,28 @@ export default function UserDashboard() {
 
             {/* Info Section */}
             <div className="info flex flex-col justify-center items-center mt-24 gap-2 text-center">
-                <div className="text-white font-bold text-lg">
+                <div className="text-white font-bold text-lg"
+                    data-aos="fade-right"
+                    data-aos-delay="300">
                     Welcome, @{username}
                 </div>
 
-                <div className="text-slate-400 font-medium">
+                <div className="text-slate-400 font-medium"
+                    data-aos="fade-left"
+                    data-aos-delay="350">
                     Let’s explore the world, one trip at a time 🌍
                 </div>
 
-                <div className="text-slate-400">
+                <div className="text-slate-400"
+                    data-aos="fade-right"
+                    data-aos-delay="400">
                     {totalTrips} Trips Planned · {totalDays} Days Traveled
                 </div>
 
                 {/* Plan a New Trip */}
-                <Link href="/generate">
+                <Link href="/itinerary"
+                    data-aos="fade-down"
+                    data-aos-delay="100">
                     <button className="bg-cyan-900 hover:bg-cyan-700 text-white py-2 px-4 rounded-full mt-4 shadow-md transition duration-300">
                         ✈️ Plan a New Trip
                     </button>
@@ -66,18 +79,26 @@ export default function UserDashboard() {
 
             {/* Recent Trips */}
             <div className="mt-12 w-full max-w-xl mx-auto px-4">
-                <h3 className="text-white font-semibold text-lg mb-3 border-b pb-2">
+                <h3 className="text-white font-semibold text-lg mb-3 border-b border-white/20 pb-2 text-center">
                     🗺️ Your Recent Trips
                 </h3>
-                <ul className="text-slate-300 list-disc list-inside space-y-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                     {tripHistory.map((trip, index) => (
-                        <li key={index}>
-                            <span className="font-semibold text-white">{trip.destination}</span> — {trip.days} days
-                        </li>
+                        <div
+                            key={index}
+                            className="bg-white/5 p-4 rounded-xl border border-white/5 shadow-sm hover:shadow-md transition duration-300"
+                        >
+                            <h3 className="text-white text-center text-lg font-semibold flex justify-center items-center gap-2">
+                                <MapPin className="w-5 h-5 text-yellow-400" />
+                                {trip.destination}
+                            </h3>
+                            <p className="text-slate-300 text-center text-sm">{trip.days} days</p>
+                        </div>
                     ))}
-                </ul>
+                </div>
+
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }
